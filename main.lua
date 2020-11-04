@@ -48,8 +48,8 @@ end
 function love.draw()
   if inGame then
     p:draw()
-    for i = 0, numOfTargets, 1 do
-      t:draw()
+    for i, x in ipairs(actorList) do
+      x:draw()
     end
   else
     --m:draw()
@@ -65,9 +65,10 @@ function startGame()
   p:new()
   
   for i = 0, numOfTargets, 1 do
-    print("Target num "..i)
+    --print("Target num "..i)
     t = target
     t:new()
+    table.insert(actorList, t)
   end
   
   inGame = true
