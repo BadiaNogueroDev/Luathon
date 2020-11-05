@@ -165,8 +165,9 @@ function mainMap:new()
   table.insert(platformsList, objects.platform23)
   
   --initial graphics setup
-  love.graphics.setBackgroundColor(0.41, 0.53, 0.97) --set the background color to a nice blue
+  --love.graphics.setBackgroundColor(0.41, 0.53, 0.97) --set the background color to a nice blue
   
+  background = love.graphics.newImage("sprites/Fons-Paper.png")
 end
 
 function mainMap:update(dt)
@@ -174,11 +175,9 @@ function mainMap:update(dt)
 end
 
 function mainMap:draw()
+  love.graphics.draw(background)
   love.graphics.setColor(0,0,0)
   --love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
-  --love.graphics.polygon("fill", objects.leftWall.body:getWorldPoints(objects.leftWall.shape:getPoints()))
-  --love.graphics.polygon("fill", objects.rightWall.body:getWorldPoints(objects.rightWall.shape:getPoints()))
-  --love.graphics.polygon("fill", objects.topWall.body:getWorldPoints(objects.topWall.shape:getPoints()))
   for _,v in ipairs(platformsList) do
     love.graphics.polygon("fill", v.body:getWorldPoints(v.shape:getPoints()))
   end
