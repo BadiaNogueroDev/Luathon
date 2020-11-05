@@ -16,6 +16,8 @@ local mainMap = mainMap or require "scripts/mainMap"
 
 local ui = ui or require "scripts/ui"
 
+local sfx = sfx or require "scripts/sfx"
+
 actorList = {}
 
 local numOfTargets = 10 --Esto se puede cambiar
@@ -35,6 +37,9 @@ function love.load()
 
   m = menu()
   ui = ui()
+  
+  s = sfx:extend()
+  sfx:new()
   
   inGame = false
   --startGame()

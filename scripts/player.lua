@@ -72,6 +72,8 @@ function player:update(dt)
     self.dashing = true
     self.attacking = true
     
+    sfx:playSlash()
+    
     objects.player.body:setGravityScale(0)
     objects.player.body:setLinearDamping(0)
     objects.player.body:applyLinearImpulse(math.cos(angle) * dt * self.impulseSpeed, math.sin(angle) * dt * self.impulseSpeed)
@@ -107,7 +109,7 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.setColor(0,0,1)
+  love.graphics.setColor(1,0,0)
   if self.dashing then
     if math.cos(angle) > 0 then
       self.scaleX = 2
