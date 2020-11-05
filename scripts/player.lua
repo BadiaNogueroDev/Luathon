@@ -21,7 +21,7 @@ function player:new(x, y)
   
   
   --Initialize animation parameters
-  player.super.new(self, "sprites/Stickman_Attack.png", x, y)
+  player.super.new(self, "sprites/Stickman_Attack_Monigote.png", x, y)
   --frames
   self.frames = {}
   self.nFrames = 7
@@ -34,7 +34,7 @@ function player:new(x, y)
     end
   end
   
-  self.scaleX = 2
+  self.scaleX = 0.66
   
   --frameRate
   self.frameRate = 24
@@ -47,12 +47,13 @@ function player:new(x, y)
   self.dashing = false
   self.attackDuration = 0.1 --Temps en el que estas atacant
   self.currentDuration = 0 --Timer, se li sumara dt fins arribar a attackDuration
-  self.fireRate = 0.8 --Cooldown entre atacs
+  self.fireRate = 0.6 --Cooldown entre atacs
   self.nextFire = 0 --Timer, se li sumara dt fins arribar a fireRate
 end
 
 function player:update(dt)
   mouse.x, mouse.y = love.mouse.getPosition()  -- This gets the x and y coordinates of the mouse
+  VelocityX, VelocityY = objects.player.body:getLinearVelocity()
   
   angle = math.atan2(mouse.y-objects.player.body:getY(), mouse.x-objects.player.body:getX())
   
@@ -63,6 +64,10 @@ function player:update(dt)
   if love.mouse.isDown(1) and self.canAttack and self.mouseUp then
     self.mouseUp = false
     self.dashing = true
+    
+    objects.player.body:setLinearDamping(2)
+    objects.player.body:setGravityScale(0.2)
+    
   elseif not love.mouse.isDown(1) and self.dashing and self.canAttack then
     objects.player.body:setLinearVelocity(0,0)
     
@@ -112,9 +117,9 @@ function player:draw()
   love.graphics.setColor(1,0,0)
   if self.dashing then
     if math.cos(angle) > 0 then
-      self.scaleX = 2
+      self.scaleX = 0.66
     else
-      self.scaleX = -2
+      self.scaleX = -0.66
     end
     love.graphics.line(objects.player.body:getX() + math.cos(angle) * 25, objects.player.body:getY() + math.sin(angle) * 25, objects.player.body:getX() + math.cos(angle) * 250, objects.player.body:getY() + math.sin(angle) * 250)
   end
@@ -123,7 +128,7 @@ function player:draw()
   
   --Draw animations
   local i = math.floor(self.actFrame)
-  love.graphics.draw(self.image, self.frames[i], objects.player.body:getX(), objects.player.body:getY(), 0,self.scaleX,2, 35/2 , 21)
+  love.graphics.draw(self.image, self.frames[i], objects.player.body:getX(), objects.player.body:getY(), 0,self.scaleX,0.66, 111/2 , 135/2)
 end
 
 function math.clamp(low, n, high) 
