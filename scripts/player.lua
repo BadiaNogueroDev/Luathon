@@ -6,7 +6,7 @@ function player:new(x, y)
   --Initialize the propierties position
   self.x = x
   self.y = y
-  self.impulseSpeed = 70000
+  self.impulseSpeed = 500
   self.jumpForce = -150
   self.mouseUp = true --True quan el mouse no s'estigui apretant
   
@@ -76,7 +76,7 @@ function player:update(dt)
     
     objects.player.body:setGravityScale(0)
     objects.player.body:setLinearDamping(0)
-    objects.player.body:applyLinearImpulse(math.cos(angle) * dt * self.impulseSpeed, math.sin(angle) * dt * self.impulseSpeed)
+    objects.player.body:applyLinearImpulse(math.cos(angle) * self.impulseSpeed, math.sin(angle) * self.impulseSpeed)
     self.mouseUp = true
   end
   

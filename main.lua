@@ -14,6 +14,8 @@ local menu = menu or require "scripts/menu"
 
 local mainMap = mainMap or require "scripts/mainMap"
 
+local ui = ui or require "scripts/ui"
+
 local sfx = sfx or require "scripts/sfx"
 
 actorList = {}
@@ -34,6 +36,7 @@ function love.load()
   math.randomseed(os.time())
 
   m = menu()
+  ui = ui()
   
   s = sfx:extend()
   sfx:new()
@@ -48,11 +51,10 @@ function love.update(dt)
   if inGame then
     map:update(dt)
     p:update(dt)
+    ui:update(dt)
     for _,v in ipairs(actorList) do
       v:update(dt, v.x, v.y)
     end
-  --else
-    --m:update(dt)
   end
 end
 
@@ -60,6 +62,7 @@ function love.draw()
   if inGame then
     map:draw()
     p:draw()
+    ui:draw()
     for _,v in ipairs(actorList) do
       v:draw()
     end
