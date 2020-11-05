@@ -21,7 +21,7 @@ function player:new(x, y)
   
   
   --Initialize animation parameters
-  player.super.new(self, "sprites/Stickman_Attack.png", x, y)
+  player.super.new(self, "sprites/Stickman_Attack_Monigote.png", x, y)
   --frames
   self.frames = {}
   self.nFrames = 7
@@ -34,7 +34,7 @@ function player:new(x, y)
     end
   end
   
-  self.scaleX = 2
+  self.scaleX = 0.66
   
   --frameRate
   self.frameRate = 24
@@ -112,9 +112,9 @@ function player:draw()
   love.graphics.setColor(1,0,0)
   if self.dashing then
     if math.cos(angle) > 0 then
-      self.scaleX = 2
+      self.scaleX = 0.66
     else
-      self.scaleX = -2
+      self.scaleX = -0.66
     end
     love.graphics.line(objects.player.body:getX() + math.cos(angle) * 25, objects.player.body:getY() + math.sin(angle) * 25, objects.player.body:getX() + math.cos(angle) * 250, objects.player.body:getY() + math.sin(angle) * 250)
   end
@@ -123,7 +123,7 @@ function player:draw()
   
   --Draw animations
   local i = math.floor(self.actFrame)
-  love.graphics.draw(self.image, self.frames[i], objects.player.body:getX(), objects.player.body:getY(), 0,self.scaleX,2, 35/2 , 21)
+  love.graphics.draw(self.image, self.frames[i], objects.player.body:getX(), objects.player.body:getY(), 0,self.scaleX,0.66, 111/2 , 135/2)
 end
 
 function math.clamp(low, n, high) 

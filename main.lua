@@ -1,5 +1,3 @@
-love.graphics.setDefaultFilter("nearest", "nearest") --Es como el "point no filter" de Unity: hace que el pixel art no se le aplique filtro
-
 Object = require "lib/classic"
 
 Vector = require "lib/vector"
