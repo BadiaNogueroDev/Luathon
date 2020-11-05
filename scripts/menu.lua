@@ -13,6 +13,8 @@ end
 local buttons = {}
 
 function menu:new()
+  background = love.graphics.newImage("sprites/Fons-Paper.png")
+  
   table.insert(buttons, newButton("Start Game", function() 
                         inGame = true
                         startGame() end))
@@ -27,6 +29,8 @@ end
 
 
 function menu:draw()
+  love.graphics.draw(background)
+  
   local w = love.graphics.getWidth()
   local h = love.graphics.getHeight()
   
