@@ -26,8 +26,9 @@ function Target:update(dt)
   local DeltaX = self.x - Max(p.x, Min(self.x, p.x + aliveSprite:getWidth()/2))
   local DeltaY = self.y - Max(p.y, Min(self.y, p.y + aliveSprite:getHeight()/2))
   
-  if (DeltaX * DeltaX + DeltaY * DeltaY) < (30*30) and p.attacking then--Cambiamos la velocidad de la pelota para que vaya hacia el otro lado
+  if (DeltaX * DeltaX + DeltaY * DeltaY) < (30*30) and p.attacking and self.isAlive then
     self.isAlive = false
+    sfx:playKill()
   end
 end
 

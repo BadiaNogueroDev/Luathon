@@ -167,7 +167,7 @@ function mainMap:new()
   --initial graphics setup
   --love.graphics.setBackgroundColor(0.41, 0.53, 0.97) --set the background color to a nice blue
   
-  background = love.graphics.newImage("sprites/Fons-Paper.png")
+  background = love.graphics.newImage("sprites/Map.png")
 end
 
 function mainMap:update(dt)
@@ -178,9 +178,9 @@ function mainMap:draw()
   love.graphics.draw(background)
   love.graphics.setColor(0,0,0)
   --love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
-  for _,v in ipairs(platformsList) do
-    love.graphics.polygon("fill", v.body:getWorldPoints(v.shape:getPoints()))
-  end
+  --for _,v in ipairs(platformsList) do
+  --  love.graphics.polygon("fill", v.body:getWorldPoints(v.shape:getPoints()))
+  --end
 end
 
 return mainMap

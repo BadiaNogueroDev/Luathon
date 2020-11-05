@@ -14,6 +14,8 @@ local menu = menu or require "scripts/menu"
 
 local mainMap = mainMap or require "scripts/mainMap"
 
+local sfx = sfx or require "scripts/sfx"
+
 actorList = {}
 
 local numOfTargets = 10 --Esto se puede cambiar
@@ -32,6 +34,9 @@ function love.load()
   math.randomseed(os.time())
 
   m = menu()
+  
+  s = sfx:extend()
+  sfx:new()
   
   inGame = false
   --startGame()
