@@ -28,8 +28,7 @@ function love.load()
 
   math.randomseed(os.time())
 
-  --m = menu
-  --m:new()
+  m = menu()
   
   inGame = false
   startGame()
@@ -45,7 +44,7 @@ function love.update(dt)
       v:update(dt, v.x, v.y)
     end
   else
-    --m:update(dt)
+    m:update(dt)
   end
 end
 
@@ -53,14 +52,11 @@ function love.draw()
   if inGame then
     map:draw()
     p:draw()
-    --for i = 0, numOfTargets, 1 do
-    --  t:draw()
-    --end
     for _,v in ipairs(actorList) do
       v:draw()
     end
   else
-    --m:draw()
+    m:draw()
   end
 end
 

@@ -14,17 +14,16 @@ local buttons = {}
 
 function menu:new()
   table.insert(buttons, newButton("Start Game", function() 
-                        mainMenu = false 
-                        gameStarted = true 
-                        gameOver = false 
-                        scoreboard = false 
+                        mainMenu = false
+                        gameStarted = true
+                        scoreboard = false
                         startGame() end))
-  table.insert(buttons, newButton("Scoreboard", function() 
-                        mainMenu = false 
-                        gameStarted = false 
-                        gameOver = false 
-                        scoreboard = true 
+  --[[table.insert(buttons, newButton("Scoreboard", function() 
+                        mainMenu = false
+                        gameStarted = false
+                        scoreboard = true
                         sBoard:printLeaderboard() end))
+  ]]--
   table.insert(buttons, newButton("Exit Game", function() love.event.quit(0) end))
 end
 
