@@ -34,7 +34,7 @@ function love.load()
   m = menu()
   
   inGame = false
-  startGame()
+  --startGame()
 end
 
 function love.update(dt)

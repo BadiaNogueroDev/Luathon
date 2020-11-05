@@ -9,7 +9,7 @@ local deadSprite = love.graphics.newImage('img/Target_Ded.png')
 
 function Target:new()
   self.index = math.random(#positionsX)
-  print(self.index)
+  --print(self.index)
   
   self.x = positionsX[self.index]
   --print("TargetX " .. self.x)
@@ -23,8 +23,8 @@ function Target:new()
 end
 
 function Target:update(dt)
-  local DeltaX = self.x - Max(p.x, Min(self.x, p.x + aliveSprite:getWidth()/2))--Comparamos Max de playerX con la comparación de Min de ballX y playerX
-  local DeltaY = self.y - Max(p.y, Min(self.y, p.y + aliveSprite:getHeight()/2))--Comparamos Max de playerY con la comparación de Min de ballY y playerY
+  local DeltaX = self.x - Max(p.x, Min(self.x, p.x + aliveSprite:getWidth()/2))
+  local DeltaY = self.y - Max(p.y, Min(self.y, p.y + aliveSprite:getHeight()/2))
   
   if (DeltaX * DeltaX + DeltaY * DeltaY) < (30*30) and p.attacking then--Cambiamos la velocidad de la pelota para que vaya hacia el otro lado
     self.isAlive = false

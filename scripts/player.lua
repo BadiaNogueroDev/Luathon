@@ -107,15 +107,16 @@ function player:update(dt)
 end
 
 function player:draw()
-  love.graphics.setColor(1,1,1)
+  love.graphics.setColor(0,0,1)
   if self.dashing then
     if math.cos(angle) > 0 then
       self.scaleX = 2
     else
       self.scaleX = -2
     end
-    love.graphics.line(objects.player.body:getX(), objects.player.body:getY(), objects.player.body:getX() + math.cos(angle) * 250 , objects.player.body:getY() + math.sin(angle) * 250)
+    love.graphics.line(objects.player.body:getX() + math.cos(angle) * 25, objects.player.body:getY() + math.sin(angle) * 25, objects.player.body:getX() + math.cos(angle) * 250, objects.player.body:getY() + math.sin(angle) * 250)
   end
+  love.graphics.setColor(1,1,1)
   --love.graphics.polygon("fill", objects.player.body:getWorldPoints(objects.player.shape:getPoints())) --DEBUG PHYSICS HITBOX
   
   --Draw animations

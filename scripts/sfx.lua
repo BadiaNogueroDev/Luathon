@@ -14,5 +14,3 @@ function sfx:new()
   self.swordSlash = love.audio.newSource(soundEffects[1], 'stream')
   self.swordSlash:setVolume(0.2)
   end
-
-
