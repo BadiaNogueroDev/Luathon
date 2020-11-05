@@ -2,6 +2,8 @@ Object = require "lib/classic"
 
 Vector = require "lib/vector"
 
+Actor = require "lib/actor"
+
 local player = player or require "scripts/player"
 
 local menu = menu or require "scripts/menu"
@@ -43,6 +45,7 @@ end
 
 function love.draw()
   if inGame then
+    map:draw()
     p:draw()
   else
     --m:draw()
