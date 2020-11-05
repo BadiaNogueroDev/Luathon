@@ -24,6 +24,8 @@ function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
   
+  background = love.graphics.newImage("sprites/Fons-Paper.png")
+
   font = love.graphics.newFont('fonts/Pixeled.ttf', 20)
   love.graphics.setFont (font)
   
@@ -65,6 +67,7 @@ function love.draw()
       v:draw()
     end
   else
+    love.graphics.draw(background)
     m:draw()
   end
 end

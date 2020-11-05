@@ -14,7 +14,6 @@ local buttons = {}
 
 function menu:new()
   title = love.graphics.newImage("sprites/title.png")
-  background = love.graphics.newImage("sprites/Fons-Paper.png")
   startButton = love.graphics.newImage("sprites/Start-Button.png")
   exitButton = love.graphics.newImage("sprites/Exit-Button.png")
   
@@ -32,8 +31,6 @@ end
 
 
 function menu:draw()
-  love.graphics.draw(background)
-  
   local w = love.graphics.getWidth()
   local h = love.graphics.getHeight()
   
@@ -81,13 +78,6 @@ function menu:draw()
     end
   
     --love.graphics.rectangle("fill", buttonX, buttonY, buttonWidth, buttonHeight)
-    
-    love.graphics.setColor(0, 0, 0)
-    
-    local textW = font:getWidth(button.text)
-    local textH = font:getHeight(button.text)
-    
-    love.graphics.print(button.text, w/2 - textW/2, buttonY + textH/10)
     
     love.graphics.setColor(1, 1, 1)
     
