@@ -4,8 +4,8 @@ mouse = {} --Guarda las cordenadas del mouse
 
 function player:new(x, y)
   --Initialize the propierties position
-  self.posX = x
-  self.posY = y
+  self.x = x
+  self.y = y
   self.impulseSpeed = 70000
   self.jumpForce = -150
   self.mouseUp = true --True quan el mouse no s'estigui apretant
@@ -37,7 +37,7 @@ function player:new(x, y)
   self.scaleX = 2
   
   --frameRate
-  self.frameRate = 20
+  self.frameRate = 24
   self.actFrame = 1 
   
   
@@ -52,9 +52,11 @@ end
 
 function player:update(dt)
   mouse.x, mouse.y = love.mouse.getPosition()  -- This gets the x and y coordinates of the mouse
-  VelocityX, VelocityY = objects.player.body:getLinearVelocity()
   
   angle = math.atan2(mouse.y-objects.player.body:getY(), mouse.x-objects.player.body:getX())
+  
+  self.x = objects.player.body:getX()
+  self.y = objects.player.body:getY()
   
   --Shooting
   if love.mouse.isDown(1) and self.canAttack and self.mouseUp then

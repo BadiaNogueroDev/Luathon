@@ -1,3 +1,5 @@
+love.graphics.setDefaultFilter("nearest", "nearest") --Es como el "point no filter" de Unity: hace que el pixel art no se le aplique filtro
+
 Object = require "lib/classic"
 
 Vector = require "lib/vector"
@@ -22,9 +24,9 @@ function love.load()
   
   w, h = love.graphics.getDimensions() -- Get the screen width and height
   
-  love.graphics.setDefaultFilter("nearest", "nearest") --Es el "point no filter" de Unity: hace que el pixel art no se le aplique filtro
-  
   love.window.setMode(w, h)
+
+  math.randomseed(os.time())
 
   --m = menu
   --m:new()
@@ -40,7 +42,7 @@ function love.update(dt)
     map:update(dt)
     p:update(dt)
     for _,v in ipairs(actorList) do
-      v:update(dt)
+      v:update(dt, v.x, v.y)
     end
   else
     --m:update(dt)
@@ -51,8 +53,11 @@ function love.draw()
   if inGame then
     map:draw()
     p:draw()
-    for i = 0, numOfTargets, 1 do
-      t:draw()
+    --for i = 0, numOfTargets, 1 do
+    --  t:draw()
+    --end
+    for _,v in ipairs(actorList) do
+      v:draw()
     end
   else
     --m:draw()
@@ -69,8 +74,9 @@ function startGame()
   
   for i = 0, numOfTargets, 1 do
     print("Target num "..i)
-    t = target
+    t = target:extend()
     t:new()
+    table.insert(actorList, t)
   end
   
   inGame = true
