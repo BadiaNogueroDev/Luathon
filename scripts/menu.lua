@@ -41,7 +41,7 @@ function menu:draw()
   local buttonWidth = w/2.5
   local buttonHeight = h/8
   
-  local margin = 150
+  local margin = 80
   
   local totalHeight = (buttonHeight + margin) * #buttons
   local totalSpriteHeight = (spriteHeight + margin) * #buttons
@@ -51,10 +51,10 @@ function menu:draw()
     button.last = button.now
     
     local spriteX = w/2 - startButton:getWidth()/2
-    local spriteY = h/2 - totalSpriteHeight/2 + cursorY
+    local spriteY = h/2 - totalSpriteHeight/4 + cursorY
     
     local buttonX = w/2 - buttonWidth/2
-    local buttonY = h/2 - totalHeight/2 + cursorY
+    local buttonY = h/2 - totalHeight/4 + cursorY
     local color = {0.4, 0.4, 0.5}
     local mX, mY = love.mouse.getPosition()
     
