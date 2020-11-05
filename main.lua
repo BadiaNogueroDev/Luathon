@@ -6,11 +6,15 @@ Actor = require "lib/actor"
 
 local player = player or require "scripts/player"
 
+local target = target or require "scripts/target"
+
 local menu = menu or require "scripts/menu"
 
 local mainMap = mainMap or require "scripts/mainMap"
 
 actorList = {}
+
+local numOfTargets = 10 --Esto se puede cambiar
 
 function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
@@ -47,6 +51,9 @@ function love.draw()
   if inGame then
     map:draw()
     p:draw()
+    for i = 0, numOfTargets, 1 do
+      t:draw()
+    end
   else
     --m:draw()
   end
@@ -59,6 +66,12 @@ function startGame()
   
   p = player
   p:new()
+  
+  for i = 0, numOfTargets, 1 do
+    print("Target num "..i)
+    t = target
+    t:new()
+  end
   
   inGame = true
 end
