@@ -13,6 +13,7 @@ end
 local buttons = {}
 
 function menu:new()
+  title = love.graphics.newImage("sprites/title.png")
   background = love.graphics.newImage("sprites/Fons-Paper.png")
   startButton = love.graphics.newImage("sprites/Start-Button.png")
   exitButton = love.graphics.newImage("sprites/Exit-Button.png")
@@ -46,6 +47,8 @@ function menu:draw()
   local totalHeight = (buttonHeight + margin) * #buttons
   local totalSpriteHeight = (spriteHeight + margin) * #buttons
   local cursorY = 0
+  
+  love.graphics.draw(title, w/2 - title:getWidth()/2, 100)
   
   for i, button in ipairs(buttons) do
     button.last = button.now
