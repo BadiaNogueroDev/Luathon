@@ -47,12 +47,13 @@ function player:new(x, y)
   self.dashing = false
   self.attackDuration = 0.1 --Temps en el que estas atacant
   self.currentDuration = 0 --Timer, se li sumara dt fins arribar a attackDuration
-  self.fireRate = 0.8 --Cooldown entre atacs
+  self.fireRate = 0.6 --Cooldown entre atacs
   self.nextFire = 0 --Timer, se li sumara dt fins arribar a fireRate
 end
 
 function player:update(dt)
   mouse.x, mouse.y = love.mouse.getPosition()  -- This gets the x and y coordinates of the mouse
+  VelocityX, VelocityY = objects.player.body:getLinearVelocity()
   
   angle = math.atan2(mouse.y-objects.player.body:getY(), mouse.x-objects.player.body:getX())
   
@@ -63,6 +64,10 @@ function player:update(dt)
   if love.mouse.isDown(1) and self.canAttack and self.mouseUp then
     self.mouseUp = false
     self.dashing = true
+    
+    objects.player.body:setLinearDamping(2)
+    objects.player.body:setGravityScale(0.2)
+    
   elseif not love.mouse.isDown(1) and self.dashing and self.canAttack then
     objects.player.body:setLinearVelocity(0,0)
     
