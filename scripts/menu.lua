@@ -14,9 +14,7 @@ local buttons = {}
 
 function menu:new()
   table.insert(buttons, newButton("Start Game", function() 
-                        mainMenu = false
-                        gameStarted = true
-                        scoreboard = false
+                        inGame = true
                         startGame() end))
   --[[table.insert(buttons, newButton("Scoreboard", function() 
                         mainMenu = false

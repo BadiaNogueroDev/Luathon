@@ -22,6 +22,9 @@ function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
   
+  font = love.graphics.newFont('fonts/Pixeled.ttf', 20)
+  love.graphics.setFont (font)
+  
   w, h = love.graphics.getDimensions() -- Get the screen width and height
   
   love.window.setMode(w, h)
@@ -43,8 +46,8 @@ function love.update(dt)
     for _,v in ipairs(actorList) do
       v:update(dt, v.x, v.y)
     end
-  else
-    m:update(dt)
+  --else
+    --m:update(dt)
   end
 end
 
@@ -74,8 +77,6 @@ function startGame()
     t:new()
     table.insert(actorList, t)
   end
-  
-  inGame = true
 end
 
 function mainMenu()

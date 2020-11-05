@@ -49,7 +49,7 @@ function Max(a, b)
 end
 
 function Min(a, b)
-  if a > b then 
+  if a > b then
     return b
   else 
     return a
