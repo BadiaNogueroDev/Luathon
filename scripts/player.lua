@@ -44,6 +44,7 @@ function player:new(x, y)
   --Player attacking
   self.attacking = false --El personatge esta atacant
   self.canAttack = true --El personatge pot atacar
+  self.dashing = false
   self.attackDuration = 0.1 --Temps en el que estas atacant
   self.currentDuration = 0 --Timer, se li sumara dt fins arribar a attackDuration
   self.fireRate = 0.8 --Cooldown entre atacs
@@ -61,13 +62,14 @@ function player:update(dt)
   --Shooting
   if love.mouse.isDown(1) and self.canAttack and self.mouseUp then
     self.mouseUp = false
-    self.attacking = true
-  elseif not love.mouse.isDown(1) and self.attacking and self.canAttack then
+    self.dashing = true
+  elseif not love.mouse.isDown(1) and self.dashing and self.canAttack then
     objects.player.body:setLinearVelocity(0,0)
     
     self.nextFire = 0
     self.currentDuration = 0
     self.canAttack = false
+    self.dashing = true
     self.attacking = true
     
     objects.player.body:setGravityScale(0)
@@ -84,7 +86,7 @@ function player:update(dt)
     if self.currentDuration >= self.attackDuration then
       objects.player.body:setLinearDamping(3)
       objects.player.body:setGravityScale(3)
-      self.attacking = false
+      self.dashing = false
     end
     if self.nextFire >= self.fireRate then
       self.canAttack = true
@@ -95,6 +97,8 @@ function player:update(dt)
     if not self.canAttack then
       if self.actFrame <= self.nFrames then
         self.actFrame = self.actFrame + self.frameRate*dt
+      else
+        self.attacking = false
       end
     else
       self.actFrame =1
@@ -104,7 +108,7 @@ end
 
 function player:draw()
   love.graphics.setColor(1,1,1)
-  if self.attacking then
+  if self.dashing then
     if math.cos(angle) > 0 then
       self.scaleX = 2
     else
