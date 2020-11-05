@@ -18,7 +18,9 @@ local sfx = sfx or require "scripts/sfx"
 
 actorList = {}
 
-local numOfTargets = 10 --Esto se puede cambiar
+gameElements = {}
+
+numOfTargets = 10 --Esto se puede cambiar
 
 function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
@@ -35,23 +37,22 @@ function love.load()
 
   math.randomseed(os.time())
 
-  m = menu()
-  ui = ui()
+  m = menu
+  m:new()
   
   s = sfx:extend()
   sfx:new()
   
   inGame = false
-  --startGame()
 end
 
 function love.update(dt)
   world:update(dt) --this puts the world into motion
   
   if inGame then
-    map:update(dt)
-    p:update(dt)
-    ui:update(dt)
+    for _,v in ipairs(gameElements) do
+      v:update(dt)
+    end
     for _,v in ipairs(actorList) do
       v:update(dt, v.x, v.y)
     end
@@ -60,12 +61,13 @@ end
 
 function love.draw()
   if inGame then
-    map:draw()
-    p:draw()
-    ui:draw()
+    gameElements[1]:draw()
+    gameElements[2]:draw()
     for _,v in ipairs(actorList) do
       v:draw()
     end
+    
+    gameElements[3]:draw() --No s'ha fet servir un for aqui perque quan acabes un nivell vols el missatge per sobre de tot
   else
     love.graphics.draw(background)
     m:draw()
@@ -76,11 +78,17 @@ function startGame()
   --ELEMENTS IN-GAME
   map = mainMap
   map:new()
+  table.insert(gameElements, map)
   
   p = player
   p:new()
+  table.insert(gameElements, p)
   
-  for i = 0, numOfTargets, 1 do
+  ui = ui
+  ui:new()
+  table.insert(gameElements, ui)
+  
+  for i = 1, numOfTargets, 1 do
     --print("Target num "..i)
     t = target:extend()
     t:new()
@@ -88,7 +96,18 @@ function startGame()
   end
 end
 
-function mainMenu()
+function restartGame()
   inGame = false
-  m:new()
+  --ELEMENTS INGAME
+  actorList = {}
+
+  gameElements = {}
+  
+  --ELEMENTS DEL MAPA INGAME
+  platformsList = {}
+  
+  objects = {}
+  
+  positionsX = {150, 420, 320, 150, 650, 650, 960, 1450, 1450, 1250, 1450, 1250, 1100, 530, 800, 576, 800, 960, 1035}
+  positionsY = {314, 157, 476, 642, 805, 642, 805,  805,  642,  462,  314,  166,  462, 157, 464 ,495, 314, 642,  345}
 end

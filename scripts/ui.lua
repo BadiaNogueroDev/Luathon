@@ -1,5 +1,7 @@
 local ui = Object:extend()
 
+levelComplete = love.graphics.newImage("sprites/level-complete.png")
+
 local function newButton (text, fn)
   return{
     text = text,
@@ -15,14 +17,16 @@ local buttons = {}
 local timer = 0
 
 function ui:new()
+  buttons = {}
+  targetsAlive = numOfTargets
   mainButton = love.graphics.newImage("sprites/home.png")
-  table.insert(buttons, newButton("", function() inGame = false end))
+  table.insert(buttons, newButton("", function() restartGame() end))
+  timer = 0
 end
 
 function ui:update(dt)
-  
   timer = timer + dt
-  
+    
 end
 
 function ui:draw()
@@ -45,38 +49,40 @@ function ui:draw()
   local totalSpriteHeight = (spriteHeight + margin) * #buttons
   local cursorY = 0
   
+  if targetsAlive <= 0 then
+    love.graphics.draw(levelComplete, w/2, h/2, 0, 1, 1, levelComplete:getWidth()/2, levelComplete:getHeight()/2)
+    
+    for i, button in ipairs(buttons) do
+      button.last = button.now
+      
+      local spriteX = 1380
+      local spriteY = 80 + cursorY
   
-  for i, button in ipairs(buttons) do
-    button.last = button.now
+      local color = {0.4, 0.4, 0.5}
+      local mX, mY = love.mouse.getPosition()
+      
+      --Highlight
+      local highlight = mX > spriteX and mX < spriteX + buttonWidth and mY > spriteY and mY < spriteY + buttonHeight
+      if highlight then
+        color = {0.8, 0.8, 0.9, 0.2}
+      end
+      
+      --Detectar un solo clic
+      button.now = love.mouse.isDown(1)
+      if button.now and not button.last and highlight then
+        button.fn()
+      end
+      
+      love.graphics.setColor(unpack(color))
+      love.graphics.draw(mainButton, spriteX, spriteY, 0, spriteWidth, spriteHeight)
     
-    local spriteX = 1380
-    local spriteY = 80 + cursorY
-
-    local color = {0.4, 0.4, 0.5}
-    local mX, mY = love.mouse.getPosition()
-    
-    --Highlight
-    local highlight = mX > spriteX and mX < spriteX + buttonWidth and mY > spriteY and mY < spriteY + buttonHeight
-    if highlight then
-      color = {0.8, 0.8, 0.9, 0.2}
+      love.graphics.rectangle("fill", spriteX, spriteY, spriteWidth, spriteHeight)
+      
+      love.graphics.setColor(1, 1, 1)
+      
+      cursorY = cursorY + (buttonHeight + margin)
     end
-    
-    --Detectar un solo clic
-    button.now = love.mouse.isDown(1)
-    if button.now and not button.last and highlight then
-      button.fn()
-    end
-    
-    love.graphics.setColor(unpack(color))
-    love.graphics.draw(mainButton, spriteX, spriteY, 0, spriteWidth, spriteHeight)
-  
-    love.graphics.rectangle("fill", spriteX, spriteY, spriteWidth, spriteHeight)
-    
-    love.graphics.setColor(1, 1, 1)
-    
-    cursorY = cursorY + (buttonHeight + margin)
   end
-  
 end
 
 

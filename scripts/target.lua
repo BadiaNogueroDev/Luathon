@@ -29,6 +29,8 @@ function Target:update(dt)
   if (DeltaX * DeltaX + DeltaY * DeltaY) < (30*30) and p.attacking and self.isAlive then
     self.isAlive = false
     sfx:playKill()
+    targetsAlive = targetsAlive - 1
+    print(targetsAlive)
   end
 end
 

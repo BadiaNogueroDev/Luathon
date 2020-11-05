@@ -22,6 +22,7 @@ function sfx:playSlash()
 end
 
 function sfx:playKill()
+  self.amongUsKill:stop()
   self.amongUsKill:play()
 end
 
