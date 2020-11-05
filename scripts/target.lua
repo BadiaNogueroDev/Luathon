@@ -23,8 +23,8 @@ function Target:new()
 end
 
 function Target:update(dt)
-  local DeltaX = self.x - Max(p.x, Min(self.x, p.x + aliveSprite:getWidth()/2))
-  local DeltaY = self.y - Max(p.y, Min(self.y, p.y + aliveSprite:getHeight()/2))
+  local DeltaX = self.x - Max(p.x, Min(self.x, p.x))
+  local DeltaY = self.y - 10 - Max(p.y, Min(self.y - 10, p.y))
   
   if (DeltaX * DeltaX + DeltaY * DeltaY) < (30*30) and p.attacking and self.isAlive then
     self.isAlive = false
@@ -35,7 +35,7 @@ function Target:update(dt)
 end
 
 function Target:draw()
-  --love.graphics.rectangle("fill", self.x - aliveSprite:getWidth()/2, self.y - aliveSprite:getHeight()/2, 30, 30)
+  --love.graphics.circle("fill", self.x, self.y - 10, 25, 25) --DEBUG COLLISION HITBOX
   if self.isAlive then
     love.graphics.draw(aliveSprite, self.x, self.y,0 ,0.66 ,0.66, aliveSprite:getWidth()/2, aliveSprite:getHeight()/2)
   else

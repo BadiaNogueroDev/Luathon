@@ -124,6 +124,7 @@ function player:draw()
     love.graphics.line(objects.player.body:getX() + math.cos(angle) * 25, objects.player.body:getY() + math.sin(angle) * 25, objects.player.body:getX() + math.cos(angle) * 250, objects.player.body:getY() + math.sin(angle) * 250)
   end
   love.graphics.setColor(1,1,1)
+  --love.graphics.circle("fill", self.x, self.y, 5, 5) --DEBUG COLLISION HITBOX
   --love.graphics.polygon("fill", objects.player.body:getWorldPoints(objects.player.shape:getPoints())) --DEBUG PHYSICS HITBOX
   
   --Draw animations

@@ -25,8 +25,9 @@ function ui:new()
 end
 
 function ui:update(dt)
-  timer = timer + dt
-    
+  if targetsAlive > 0 then
+    timer = timer + dt
+  end
 end
 
 function ui:draw()

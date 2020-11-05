@@ -70,13 +70,13 @@ function mainMap:new()
   
   objects.platform7 = {}
   objects.platform7.body = love.physics.newBody(world, 89 + 227, 510) --remember, the shape (the rectangle we create next) anchors to the body from its center
-  objects.platform7.shape = love.physics.newRectangleShape(186, 26) --make a rectangle with a width of 1600 and a height of 50
+  objects.platform7.shape = love.physics.newRectangleShape(185, 26) --make a rectangle with a width of 1600 and a height of 50
   objects.platform7.fixture = love.physics.newFixture(objects.platform7.body, objects.platform7.shape) --attach shape to body
   table.insert(platformsList, objects.platform7)
   
   objects.platform9 = {}
   objects.platform9.body = love.physics.newBody(world, 89 + 320 -13, 676 - 258 -160) --remember, the shape (the rectangle we create next) anchors to the body from its center
-  objects.platform9.shape = love.physics.newRectangleShape(26, 160) --make a rectangle with a width of 1600 and a height of 50
+  objects.platform9.shape = love.physics.newRectangleShape(26, 158) --make a rectangle with a width of 1600 and a height of 50
   objects.platform9.fixture = love.physics.newFixture(objects.platform9.body, objects.platform9.shape) --attach shape to body
   table.insert(platformsList, objects.platform9)
   
@@ -130,7 +130,7 @@ function mainMap:new()
   
   objects.platform18 = {}
   objects.platform18.body = love.physics.newBody(world, 1600 - 420, 676 -180) --remember, the shape (the rectangle we create next) anchors to the body from its center
-  objects.platform18.shape = love.physics.newRectangleShape(312, 26) --make a rectangle with a width of 1600 and a height of 50
+  objects.platform18.shape = love.physics.newRectangleShape(310, 26) --make a rectangle with a width of 1600 and a height of 50
   objects.platform18.fixture = love.physics.newFixture(objects.platform18.body, objects.platform18.shape) --attach shape to body
   table.insert(platformsList, objects.platform18)
   
