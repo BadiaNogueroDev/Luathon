@@ -4,8 +4,8 @@ positionsX = {150, 420, 320, 150, 650, 650, 960, 1450, 1450, 1250, 1450, 1250, 1
 positionsY = {314, 157, 476, 642, 805, 642, 805,  805,  642,  462,  314,  166,  462, 157, 464 ,495, 314, 642, 345}
 local targetNum = 10
 
-local aliveSprite = love.graphics.newImage('img/Target_Alive.png')
-local deadSprite = love.graphics.newImage('img/Target_Ded.png')
+local aliveSprite = love.graphics.newImage('img/Target_Alive_Drawing.png')
+local deadSprite = love.graphics.newImage('img/Target_Ded_Drawing.png')
 
 function Target:new()
   self.index = math.random(#positionsX)
@@ -35,9 +35,9 @@ end
 function Target:draw()
   --love.graphics.rectangle("fill", self.x - aliveSprite:getWidth()/2, self.y - aliveSprite:getHeight()/2, 30, 30)
   if self.isAlive then
-    love.graphics.draw(aliveSprite, self.x, self.y,0 ,2 ,2, aliveSprite:getWidth()/2, aliveSprite:getHeight()/2)
+    love.graphics.draw(aliveSprite, self.x, self.y,0 ,0.66 ,0.66, aliveSprite:getWidth()/2, aliveSprite:getHeight()/2)
   else
-    love.graphics.draw(deadSprite, self.x, self.y, 0, 2, 2, deadSprite:getWidth()/2, deadSprite:getHeight()/2)
+    love.graphics.draw(deadSprite, self.x, self.y, 0, 0.66, 0.66, deadSprite:getWidth()/2, deadSprite:getHeight()/2)
   end
 end
 
