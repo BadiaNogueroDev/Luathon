@@ -69,7 +69,7 @@ function startGame()
   p:new()
   
   for i = 0, numOfTargets, 1 do
-    print("Target num "..i)
+    --print("Target num "..i)
     t = target:extend()
     t:new()
     table.insert(actorList, t)
