@@ -1,70 +1,78 @@
-menu = Object:extend()
+local menu = Object:extend()
 
-mouse = {} --Guarda las cordenadas del mouse
-
-function menu:new(x, y, forward)
-  background = love.graphics.newImage("sprites/Menu_Background.png") --Guardar imagen en una variable
-  
-  startButton = love.graphics.newImage("sprites/Start_Button.png")
-  self.startList = {startButton, w/2, 7 * h/10, 4, function() startGame() end} --Lista con imagen, posX, posY, scale y función del bóton
-  
-  exitButton = love.graphics.newImage("sprites/Exit_Button.png")
-  self.exitList = {exitButton, w/2, 8.5 * h/10, 3, function() os.exit() end}
+local function newButton (text, fn)
+  return{
+    text = text,
+    fn = fn,
+    
+    now = false,
+    last = false,
+    }
 end
 
-function menu:update(dt)
-  if not inGame then
-    mouse.x, mouse.y = love.mouse.getPosition()  -- This gets the x and y coordinates of the mouse and 
-    if not video:isPlaying() then
-      self:useButton(self.startList)
-      self:useButton(self.exitList)
-    end
-  end
+local buttons = {}
+
+function menu:new()
+  table.insert(buttons, newButton("Start Game", function() 
+                        mainMenu = false 
+                        gameStarted = true 
+                        gameOver = false 
+                        scoreboard = false 
+                        startGame() end))
+  table.insert(buttons, newButton("Scoreboard", function() 
+                        mainMenu = false 
+                        gameStarted = false 
+                        gameOver = false 
+                        scoreboard = true 
+                        sBoard:printLeaderboard() end))
+  table.insert(buttons, newButton("Exit Game", function() love.event.quit(0) end))
 end
+
 
 function menu:draw()
-  if not inGame then
-      love.graphics.draw(video, 0, 0) --Dibujar videdo
-    if not video:isPlaying() then
-      love.graphics.draw(background) --Dibujar background
-      love.graphics.draw(self.exitList[1], self.exitList[2], self.exitList[3], 0, self.exitList[4], self.exitList[4], self.exitList[1]:getWidth()/2, self.exitList[1]:getHeight()/2)
-      if os.time() % 2 == 0 then
-        love.graphics.draw(self.startList[1], self.startList[2], self.startList[3], 0, self.startList[4], self.startList[4], self.startList[1]:getWidth()/2, self.startList[1]:getHeight()/2)
-      end
-    end
-  end
-end
-
-function menu:collision(image, posX, posY) --Función que detecta la colision de los botones y devuelve true
-  self.DeltaX = mouse.x - Max(posX - (image:getWidth()/2), Min(mouse.x, posX + (image:getWidth()/2)))
-  self.DeltaY = mouse.y - Max(posY - (image:getWidth()/2), Min(mouse.y, posY + (image:getWidth()/2)))
-
-  if self.DeltaX == 0 and self.DeltaY == 0 then
-    return true
-  else
-    return false
-  end
-end
-
-function menu:useButton(list) --Función que llama al función collision para modificar texto y si se da clic se efectua la función de la lista
-  if menu:collision(list[1], list[2], list[3]) and love.mouse.isDown(1) then
-    list[5]()
-  end
-end
-
-function menu:characterSelection()
+  local w = love.graphics.getWidth()
+  local h = love.graphics.getHeight()
   
-end
-
-function Max(a, b)
-  if a > b then return a
-  else return b
-  end
-end
-
-function Min(a, b)
-  if a > b then return b
-  else return a
+  local buttonWidth = w/2.5
+  local buttonHeight = h/12
+  local margin = 15
+  
+  local totalHeight = (buttonHeight + margin) * #buttons
+  local cursorY = 0
+  
+  for i, button in ipairs(buttons) do
+    button.last = button.now
+    
+    local buttonX = w/2 - buttonWidth/2
+    local buttonY = h/2 - totalHeight/2 + cursorY
+    local color = {0.4, 0.4, 0.5}
+    local mX, mY = love.mouse.getPosition()
+    
+    --Highlight
+    local highlight = mX > buttonX and mX < buttonX + buttonWidth and mY > buttonY and mY < buttonY + buttonHeight
+    if highlight then
+      color = {0.8, 0.8, 0.9}
+    end
+    
+    --Detectar un solo clic
+    button.now = love.mouse.isDown(1)
+    if button.now and not button.last and highlight then
+      button.fn()
+    end
+    
+    love.graphics.setColor(unpack(color))
+    love.graphics.rectangle("fill", buttonX, buttonY, buttonWidth, buttonHeight)
+    
+    love.graphics.setColor(0, 0, 0)
+    
+    local textW = font:getWidth(button.text)
+    local textH = font:getHeight(button.text)
+    
+    love.graphics.print(button.text, w/2 - textW/2, buttonY + textH/10)
+    
+    love.graphics.setColor(1, 1, 1)
+    
+    cursorY = cursorY + (buttonHeight + margin)
   end
 end
 
